@@ -169,7 +169,7 @@ userInfo={userInfo}
 ## 7. Summoner Inventory
 ```
 GET /lolinventoryservice/v2{inventoryCallType}?puuid={puuid}&inventoryTypes={inventoryType}&location={system.yaml => {platformId} => discoverous_service_location}&accountId={accountId}&signed=true HTTP/1.1
-Host: eun1.cap.riotgames.com
+Host: {platformId}.cap.riotgames.com
 Accept-Encoding: deflate, gzip
 user-agent: RiotClient/18.3.0 (lol-inventory)
 Authorization: Bearer {idToken}
