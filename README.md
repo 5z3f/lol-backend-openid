@@ -24,7 +24,7 @@ Accept-Encoding: deflate, gzip
 user-agent: RiotClient/18.3.0 (lol-rso-auth)
 Cache-Control: no-cache
 Content-Type: application/x-www-form-urlencoded
-X-Riot-DISD: {UUID v4 without dash}
+X-Riot-DSID: {UUID v4 without dash}
 Accept: application/json
 Content-Length: {Request body length}
 
