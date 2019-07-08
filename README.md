@@ -1,5 +1,5 @@
 # lol-backend-openid
-League of Legends calls for OpenID authorization and summoner data gathering
+LeagueClient openid calls for rso authorization and summoner data gathering
 
 *Production platform IDs (riot):*  
 EUN1, RU, NA1, KR, TR1, JP1, OC1, BR1, EUW1, LA1 (LAN), LA2 (LAS), PBE1
