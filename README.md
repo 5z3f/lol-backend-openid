@@ -2,7 +2,7 @@
 League of Legends calls for OpenID authorization and summoner data gathering
 
 *Production platform IDs (riot):*  
-EUN1, RU, NA1, TR1, JP1, OC1, BR1, EUW1, LA1 (LAN), LA2 (LAS)
+EUN1, RU, NA1, KR, TR1, JP1, OC1, BR1, EUW1, LA1 (LAN), LA2 (LAS), PBE1
 
 **LeagueClient 9.13.280.4632-prod**
 
@@ -29,7 +29,7 @@ Accept: application/json
 Content-Length: {Request body length}
 
 client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&
-client_assertion={system.yaml => {platformId} => token}&
+client_assertion={token}&
 grant_type=password&
 username={platformId}%7C{USERNAME}&
 password={PASSWORD}&
@@ -52,8 +52,8 @@ scope=openid%20offline_access%20lol%20ban%20profile%20email%20phone
 *   account_state_transferring_back
 *   account_state_creating
 *   account_state_archived
-*   rate_limited **(server side only)**
 *   account_state_pending_forget **(server side only)**
+*   rate_limited **(server side only)**
 *   consent_required **(client side only)**
 
 ### accessToken payload
@@ -159,7 +159,7 @@ userInfo={userInfo}
 ```
 ### Response
 ```
-200 OK                                  | {"reason":"login_rate","delay":11000,"rate":93,"inGameCredentials":{"inGame":false,"summonerId":null,"serverIp":null,"serverPort":null,"encryptionKey":null,"handshakeToken":null},"user":"{USERNAME}","lqt":{"account_id":{accountId},"account_name":"{USERNAME}","other":"{encryptedOtherVar},"fingerprint":"{fingerprint}","signature":"{signature}","timestamp":1562125621764,"uuid":"{UUID v4}","ip":"{IP}","partner_token":"Bearer {accessToken}","resources":"lol"},"status":"LOGIN"}
+200 OK | {"reason":"login_rate","delay":11000,"rate":93,"inGameCredentials":{"inGame":false,"summonerId":null,"serverIp":null,"serverPort":null,"encryptionKey":null,"handshakeToken":null},"user":"{USERNAME}","lqt":{"account_id":{accountId},"account_name":"{USERNAME}","other":"{encryptedOtherVar},"fingerprint":"{fingerprint}","signature":"{signature}","timestamp":1562125621764,"uuid":"{UUID v4}","ip":"{IP}","partner_token":"Bearer {accessToken}","resources":"lol"},"status":"LOGIN"}
 ```
 
 ## 5. xx
@@ -168,7 +168,7 @@ userInfo={userInfo}
 
 ## 7. Summoner Inventory
 ```
-GET /lolinventoryservice/v2{inventoryCallType}?puuid={puuid}&inventoryTypes={inventoryType}&location={system.yaml => {platformId} => discoverous_service_location}&accountId={accountId}&signed=true HTTP/1.1
+GET /lolinventoryservice/v2{inventoryCallType}?puuid={puuid}&inventoryTypes={inventoryType}&location={discoverous_service_location}&accountId={accountId}&signed=true HTTP/1.1
 Host: {platformId}.cap.riotgames.com
 Accept-Encoding: deflate, gzip
 user-agent: RiotClient/18.3.0 (lol-inventory)
@@ -210,7 +210,7 @@ Authorization: Bearer {idToken}
 
 ### Response
 ```
-200 OK                                  | {"data":{"puuid":"{puuid}","accountId":{accountId},"expires":"{expiresAt}","items":{},"itemsJwt":"{itemsJwt}"}}
+200 OK | {"data":{"puuid":"{puuid}","accountId":{accountId},"expires":"{expiresAt}","items":{},"itemsJwt":"{itemsJwt}"}}
 ```
 
 #### itemsJwt (/inventoriesWithLoyalty, CHAMPION)
