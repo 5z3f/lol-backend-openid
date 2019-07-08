@@ -23,7 +23,7 @@ class call:
     def inventory(self, inventoryType: str=None):
         headers = {
             'Accept-Encoding': 'deflate, gzip',
-            'user-agent': self.userAgent('rso'),
+            'user-agent': self.userAgent('inventory'),
             'Accept': 'application/json',
             'Authorization': 'Bearer {0}'.format(self.idToken)
         }
