@@ -10,7 +10,7 @@ import zlib
 riotClientVersion   = "18.3.0"
 manifestVersion     = "0.0.0.206" # 9.13
 
-class call:
+class RiotCall:
     def __init__(self):
         self.openid = self.getConfiguration(self)
         self.system = self.getSystem('live', manifestVersion)
@@ -101,11 +101,11 @@ class call:
             'Accept': 'application/json'
         }
 
+        r = requests.get('https://auth.riotgames.com/.well-known/openid-configuration', headers=headers)
+
         #print(r.request.url)
         #print(r.request.headers)
         #print(r.request.body)
-
-        r = requests.get('https://auth.riotgames.com/.well-known/openid-configuration', headers=headers)
         
         if r.status_code is 200:
             return r.json()
@@ -132,8 +132,41 @@ class call:
         else:
             raise Exception('requester is not specified')
 
-if __name__ == '__main__':
-    call = call()
+def main():
+    call = RiotCall()
     call.token("username", "password", "EUNE")
-    championCount = len(call.inventory("CHAMPION")["items"]["CHAMPION"])
-    print("summoner has {0} champions".format(championCount))
+
+    inventoryTypes = [
+        'TOURNAMENT_TROPHY', 
+        'TOURNAMENT_FLAG', 
+        'TOURNAMENT_FRAME', 
+        'TOURNAMENT_LOGO', 
+        'GEAR', 
+        'SKIN_UPGRADE_RECALL', 
+        'SPELL_BOOK_PAGE', 
+        'BOOST', 
+        'BUNDLES', 
+        'CHAMPION', 
+        'CHAMPION_SKIN', 
+        'EMOTE', 
+        'GIFT', 
+        'HEXTECH_CRAFTING', 
+        'MYSTERY', 
+        'RUNE', 
+        'STATSTONE', 
+        'SUMMONER_CUSTOMIZATION', 
+        'SUMMONER_ICON', 
+        'TEAM_SKIN_PURCHASE', 
+        'TRANSFER', 
+        'COMPANION', 
+        'TFT_MAP_SKIN', 
+        'WARD_SKIN', 
+        'AUGMENT_SLOT'
+    ]
+
+    for inven in inventoryTypes:
+        itemsCount = len(call.inventory(inven)["items"][inven])
+        print("Inventory {0} contains {1} items".format(inven, itemsCount))
+
+if __name__ == '__main__':
+    main()
